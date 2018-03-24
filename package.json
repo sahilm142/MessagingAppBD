@@ -1,0 +1,19 @@
+{
+  "name": "messagingbd",
+  "version": "1.0.0",
+  "description": "A NodeJS application to provide REST APIs for a messaging application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahilm142/MessagingAppBD.git"
+  },
+  "author": "Sahil Mansoori",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sahilm142/MessagingAppBD/issues"
+  },
+  "homepage": "https://github.com/sahilm142/MessagingAppBD#readme"
+}

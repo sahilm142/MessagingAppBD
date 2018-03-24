@@ -15,6 +15,11 @@ var users = require('./routes/users');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/users', users);
 
 app.listen(3004, function(){

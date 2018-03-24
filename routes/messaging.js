@@ -19,11 +19,15 @@ router.post('/sendmessage',function(req,res){
         subject   : subject,
         content   : content
         };
+    if(user.blockList.indexOf(from)!==-1){
+        res.send("Blocked");
+    } else{
     inbox.push(message);
     user.inbox=inbox;
     user.save();
     console.log(inbox);
     res.send("DONE");
+    }
 	});
 });
 

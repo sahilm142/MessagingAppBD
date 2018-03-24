@@ -68,30 +68,15 @@ router.post('/login',
 	  res.send('Logged In');
 	});
 
-//Send Message
-router.post('/sendmessage',function(req,res){
-	var toUser = req.body.toUser;
-	var subject = req.body.subject;
-	var content = req.body.content;
-	User.getUserByUserName(toUser,function(err,user){
-		if(err) throw err;
-		if(!user){
-			return done(null,false,{message:'Invalid User'});
-		}
-		console.log(user);
-		res.send(user);
 
+router.put('/block/:username', function(req, res){
+	var user="user1";
+	User.getUserByUserName(user, function(err, user){
+	  var blockList=user.blockList;
+	  blockList.push(req.params.username);
+	  user.blockList=blockList;
+	  user.save();
 	});
 });
-
-//Inbox
-// router.get('/inbox',function(req,res){
-// 	if(req.isAuthenticated()){
-// 		res.send("Messages");
-// 	}
-// 	else{
-// 		res.send('Login first');
-// 	}
-// });
 
 module.exports = router;

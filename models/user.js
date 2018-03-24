@@ -2,6 +2,12 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
 // User Schema
+var MessageSchema=mongoose.Schema({
+sender    : String,
+subject   : String,
+content   : String,
+timeStamp : {type:Date,Default:Date.now}
+});
 var UserSchema = mongoose.Schema({
 	username: {
 		type: String,
@@ -15,7 +21,9 @@ var UserSchema = mongoose.Schema({
 	},
 	lastname: {
 		type: String
-	}
+	},
+	inbox:[MessageSchema],
+	blockList:[String]
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);

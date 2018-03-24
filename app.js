@@ -10,6 +10,7 @@ mongoose.connect("mongodb://localhost/messagingapp");
 var db = mongoose.connection;
 
 var users = require('./routes/users');
+var messaging=require('./routes/messaging');
 
 // BodyParser Middleware
 app.use(bodyParser.json());
@@ -21,6 +22,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/users', users);
+app.use('/messaging',messaging);
 
 app.listen(3004, function(){
     console.log("Server Connected");

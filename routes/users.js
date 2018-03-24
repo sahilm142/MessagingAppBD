@@ -8,24 +8,27 @@ var User = require('../models/user');
 
 // Register User
 router.post('/register', function(req, res){
-	var name = req.body.name;
-	var email = req.body.email;
 	var username = req.body.username;
 	var password = req.body.password;
-	var password2 = req.body.password2;
+	var firstname = req.body.firstname;
+	var lastname = req.body.lastname;
 
+	console.log(username+password+firstname);
+		
 		var newUser = new User({
-			name: name,
-			email:email,
 			username: username,
-			password: password
+			password:password,
+			firstname: firstname,
+			last: lastname
 		});
 
+		console.log(newUser);
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
 			console.log(user);
+			console.log("user");
 		});
-        console.log(newUser);
+	res.send("DONE");
 });
 
 module.exports = router;

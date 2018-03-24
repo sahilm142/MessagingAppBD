@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/sahilm142/MessagingAppBD/issues"
   },
-  "homepage": "https://github.com/sahilm142/MessagingAppBD#readme"
+  "homepage": "https://github.com/sahilm142/MessagingAppBD#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.11",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
 }

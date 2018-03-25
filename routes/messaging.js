@@ -32,13 +32,20 @@ router.post('/sendmessage',function(req,res){
 });
 
 //Inbox
-// router.get('/inbox',function(req,res){
-// 	if(req.isAuthenticated()){
-// 		res.send("Messages");
-// 	}
-// 	else{
-// 		res.send('Login first');
-// 	}
-// });
+router.get('/inbox',function(req,res){
+	if(req.isAuthenticated()){
+        var user = req.body.username;
+        User.getUserByUserName(user, function(err, user){
+            if(err) throw err;
+            else{
+                console.log(user.inbox);
+                res.send("Yay");
+            }
+        })
+	}
+	else{   
+		res.send('Login first');
+	}
+});
 
 module.exports = router;

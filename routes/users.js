@@ -70,13 +70,17 @@ router.post('/login',
 
 
 router.put('/block/:username', function(req, res){
-	var user="user1";
-	User.getUserByUserName(user, function(err, user){
+	if(req.isAuthenticated()){
+		var user=req.body.username;
+		User.getUserByUserName(user, function(err, user){
 	  var blockList=user.blockList;
 	  blockList.push(req.params.username);
 	  user.blockList=blockList;
 	  user.save();
 	});
+	} else{
+		res.send("Login First");
+	}
 });
 
 module.exports = router;

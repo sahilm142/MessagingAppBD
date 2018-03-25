@@ -1,5 +1,5 @@
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -28,9 +28,8 @@ router.post('/register', function(req, res){
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
 			console.log(user);
-			console.log("user");
 		});
-	res.send("DONE");
+	res.send("Registered");
 });
 
 passport.serializeUser(function(user, done) {
@@ -67,22 +66,28 @@ passport.use(new LocalStrategy(
 router.post('/login',
 	passport.authenticate('local', {failureRedirect:'/users/login'}),
 	function(req, res) {
-	  res.send('Logged In');
+	  res.send('Logged In Successful');
 	});
 
 /**
  * Allows logged in users to block another user from sending messages to them
+ * first check whether user is logged in or not
  */
 
 router.put('/block/:username', function(req, res){
 	if(req.isAuthenticated()){
-		var user = req.body.username;
-		User.getUserByUserName(user, function(err, user){
-	  var blockList = user.blockList;
-	  blockList.push(req.params.username);
-	  user.blockList = blockList;
-	  user.save();
-	});
+		var user = req.user;
+		var blockList = user.blockList;
+		var blockUser = req.params.username;
+		if(blockList.indexOf(blockUser)!==-1){
+			res.send("User already in blockList");
+		}else{
+			blockList.push(blockUser);
+	  	user.blockList = blockList;
+			user.save();
+			res.send("User added to blockList");
+		}
+	  
 	} else{
 		res.send("Login First");
 	}

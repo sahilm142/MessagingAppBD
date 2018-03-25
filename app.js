@@ -34,6 +34,9 @@ app.use(session({
 app.use('/users', users);
 app.use('/messaging',messaging);
 
-app.listen(3004, function(){
-    console.log("Server Connected");
-}); 
+// Set Port
+app.set('port', (process.env.PORT || 3004));
+
+app.listen(app.get('port'), function(){
+	console.log('Server started on port '+app.get('port'));
+});

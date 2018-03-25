@@ -4,10 +4,10 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../models/user');
-var Messages = require('../models/messages');
 
-
-// Register User
+/**
+ * Allows users to register herself on the platform with basic information
+ */
 router.post('/register', function(req, res){
 	var username = req.body.username;
 	var password = req.body.password;
@@ -18,7 +18,7 @@ router.post('/register', function(req, res){
 		
 		var newUser = new User({
 			username: username,
-			password:password,
+			password: password,
 			firstname: firstname,
 			last: lastname,
 			inbox:[]
@@ -61,21 +61,26 @@ passport.use(new LocalStrategy(
 		});
 	}));
 
-//Authenticate
+/**
+ * Should authenticate and login user
+ */
 router.post('/login',
 	passport.authenticate('local', {failureRedirect:'/users/login'}),
 	function(req, res) {
 	  res.send('Logged In');
 	});
 
+/**
+ * Allows logged in users to block another user from sending messages to them
+ */
 
 router.put('/block/:username', function(req, res){
 	if(req.isAuthenticated()){
-		var user=req.body.username;
+		var user = req.body.username;
 		User.getUserByUserName(user, function(err, user){
-	  var blockList=user.blockList;
+	  var blockList = user.blockList;
 	  blockList.push(req.params.username);
-	  user.blockList=blockList;
+	  user.blockList = blockList;
 	  user.save();
 	});
 	} else{

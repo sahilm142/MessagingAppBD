@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
 // User Schema
-var MessageSchema=mongoose.Schema({
+var MessageSchema = mongoose.Schema({
 sender    : String,
 subject   : String,
 content   : String,
-timeStamp : {type:Date,Default:Date.now}
+timeStamp : {type:Date, Default:Date.now}
 });
 var UserSchema = mongoose.Schema({
 	username: {

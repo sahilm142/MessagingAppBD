@@ -3,14 +3,17 @@ var router = express.Router();
 
 var User = require('../models/user');
 
-//Send Message
+/**
+ * Allows users to send messages to another user
+ */
 
 router.post('/sendmessage',function(req,res){
     console.log("Message request");
-    var from    =req.body.from;
+    var from    = req.body.from;
 	var toUser  = req.body.toUser;
 	var subject = req.body.subject;
-	var content = req.body.content;
+    var content = req.body.content;
+    
 	User.getUserByUserName(toUser,function(err,user){
       var inbox=user.inbox;
       if(inbox==null)inbox=[];
@@ -19,6 +22,7 @@ router.post('/sendmessage',function(req,res){
         subject   : subject,
         content   : content
         };
+
     if(user.blockList.indexOf(from)!==-1){
         res.send("Blocked");
     } else{
@@ -31,17 +35,15 @@ router.post('/sendmessage',function(req,res){
 	});
 });
 
-//Inbox
-router.get('/inbox',function(req,res){
+/**
+ * Returns all messages send to the logged in user
+ */
+router.get('/inbox',function(req, res){
 	if(req.isAuthenticated()){
         var user = req.body.username;
-        User.getUserByUserName(user, function(err, user){
-            if(err) throw err;
-            else{
-                console.log(user.inbox);
-                res.send("Yay");
-            }
-        })
+        console.log(req.user.username);
+        console.log(req.user.inbox);
+        res.send(req.user.inbox);
 	}
 	else{   
 		res.send('Login first');

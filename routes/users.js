@@ -29,7 +29,7 @@ router.post('/register', function(req, res){
 			if(err) throw err;
 			console.log(user);
 		});
-	res.send("Registered");
+	res.send("Registration Successfull");
 });
 
 passport.serializeUser(function(user, done) {

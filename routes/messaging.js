@@ -10,6 +10,7 @@ var User = require('../models/user');
  */
 
 router.post('/sendmessage',function(req,res){
+    if(req.isAuthenticated()){
     console.log("Message request");
     var from    = req.body.from;
 	var toUser  = req.body.toUser;
@@ -40,7 +41,10 @@ router.post('/sendmessage',function(req,res){
       res.send("Message Sent");
       }
       }  
-	});
+    });
+    } else{
+        res.send("Log in First");
+    }
 });
 
 /**
